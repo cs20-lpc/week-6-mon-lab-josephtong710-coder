@@ -7,8 +7,14 @@ using namespace std;
  * Function prototype
 *******************************************************************************/
 
-void towerHanoi(int, string, string, string, int&);
-
+void towerHanoi(int numDisks, string source, string buffer, string target, int& numMoves){
+    if (numDisks == 0) 
+        return;
+    towerHanoi(numDisks - 1, source, target, buffer, numMoves);
+    cout << "moving disc " << numDisks << " from " << source << " to " << target << endl;
+    numMoves++;
+    towerHanoi(numDisks - 1, buffer, source, target, numMoves);
+}
 /*******************************************************************************
  * Description:
  * Starting point of the program. Calls a function to recursively determine

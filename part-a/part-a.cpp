@@ -8,18 +8,33 @@ using namespace std;
 /*******************************************************************************
  * Function prototype
 *******************************************************************************/
-
+// Call process one element and recurses the remaining elements 
+// - T(n) = T(n-1) + O(1)
+// - O(n)
 template <typename T>
-T findMaxRecTail(const T[] arr, const int size, int = 0)
+T findMaxRecTail(const T arr[], const int size, int index = 0)
 {
-    // TO DO: Implement your code
+  if (index == size - 1) {
+    return arr[index];
+  }
+  T maxOfRest = findMaxRecTail(arr, size, index + 1);
+  return (arr[index] > maxOfRest) ? arr[index] : maxOfRest;
 }
-
+// - Each call splits the array in half and makes 2 recursive calls 
+//- T(n) = 2T(n/2) + O(1)
+// O(n)
 template <typename T>
-T findMaxRecBinarySplit(const T[] arr, const int left, const int right)
+T findMaxRecBinarySplit(const T arr[], const int left, const int right)
 {
-    // TO DO: Implement your code
+    if (left == right) {
+        return arr[left];
 }
+int mid = (left + right) / 2;
+T maxLeft = findMaxRecBinarySplit(arr, left, mid);
+T maxRight = findMaxRecBinarySplit(arr, mid + 1, right);
+return (maxLeft > maxRight) ? maxLeft : maxRight;
+}
+ 
 /*******************************************************************************
  * Description:
  * Starting point of the program. Creates two arrays, one fixed and the other
